@@ -11,7 +11,7 @@
 	// Clamp number between two values with the following line:
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-	const characterSize = clamp(6 - data.chineseSentence.length / 6, 4, 6);
+	const characterSize = clamp(8 - data.chineseSentence.length / 6, 4, 8);
 
 	function SetBackgroundImage() {
 		// let words = new pos.Lexer().lex(translationText);
@@ -179,13 +179,13 @@
 
 	.character {
 		/* font-size: clamp(12px, 2vw, 24px); */
-		font-family: 'XingKai SC', 'XingKai TC', 'serif';
+		font-family: 'XingKai SC', 'XingKai TC', 'KaiTi', 'serif';
 		font-weight: bold;
 		font-size: 5em;
 	}
 	.traditionalCharacter {
 		/* font-size: clamp(12px, 2vw, 24px); */
-		font-family: 'XingKai TC', 'XingKai SC', 'serif';
+		font-family: 'XingKai TC', 'XingKai SC', 'KaiTi', 'serif';
 		font-weight: bold;
 	}
 

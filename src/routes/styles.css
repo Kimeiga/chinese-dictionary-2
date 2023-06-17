@@ -286,7 +286,7 @@ button {
   /* This will offer the illusion that it's adopting the
   background beneath it as its own but lightening it --
   almost like IOS. */
-  background: #000;
+  background-color: #fff0;
 	border: 1px solid #fff;
   color: #fff;
   opacity: 0.6;

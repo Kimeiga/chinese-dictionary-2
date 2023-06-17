@@ -37,6 +37,7 @@
 		"@vavite/node-loader": "^1.7.0",
 		"chinese-dictionary": "^1.1.2",
 		"coupling-dict-chinese-updated": "^1.0.5",
-		"he": "^1.2.0"
+		"he": "^1.2.0",
+		"heroku": "^8.1.8"
 	}
 }

@@ -8,6 +8,11 @@
 
 	let traditional = false;
 
+	// Clamp number between two values with the following line:
+	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+	const characterSize = clamp(6 - data.chineseSentence.length / 6, 4, 6);
+
 	function SetBackgroundImage() {
 		// let words = new pos.Lexer().lex(translationText);
 		// let tags = new pos.Tagger()
@@ -61,39 +66,43 @@
 </script>
 
 <main>
-	{#await data.streamed.definitions}
+	<div id="container">
 		<div class="rubyTexts">
-			{#each data.rubyTexts as rubyText}
-				<div style="display: flex; flex-direction:column;align-items:center;">
-					<ruby>
-						<span class={traditional ? 'traditionalCharacter' : 'character'} style="font-size: 5em;"
-							>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
+			{#await data.streamed.definitions}
+				{#each data.rubyTexts as rubyText}
+					<div style="display: flex; flex-direction:column;align-items:center;">
+						<ruby>
+							<span
+								class={traditional ? 'traditionalCharacter' : 'character'}
+								style="font-size: {characterSize}em"
+								>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
+							>
+							<rt>{rubyText.pinyin}</rt>
+						</ruby>
+						<span style="text-align: center; width: {rubyText.chars.length * 5}em"
+							>{rubyText.definition || ''}</span
 						>
-						<rt>{rubyText.pinyin}</rt>
-					</ruby>
-					<span style="text-align: center; width: {rubyText.chars.length * 5}em"
-						>{rubyText.definition || ''}</span
-					>
-				</div>
-			{/each}
-		</div>
-	{:then value}
-		<div class="rubyTexts">
-			{#each value as rubyText}
-				<div style="display: flex; flex-direction:column;align-items:center;">
-					<ruby>
-						<span class={traditional ? 'traditionalCharacter' : 'character'} style="font-size: 5em;"
-							>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
+					</div>
+				{/each}
+			{:then value}
+				{#each value as rubyText}
+					<div style="display: flex; flex-direction:column;align-items:center;">
+						<ruby>
+							<span
+								class={traditional ? 'traditionalCharacter' : 'character'}
+								style="font-size: {characterSize}em"
+								>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
+							>
+							<rt>{rubyText.pinyin}</rt>
+						</ruby>
+						<span style="text-align: center; width: {rubyText.chars.length * characterSize}em"
+							>{rubyText.definition || ''}</span
 						>
-						<rt>{rubyText.pinyin}</rt>
-					</ruby>
-					<span style="text-align: center; width: {rubyText.chars.length * 5}em"
-						>{rubyText.definition || ''}</span
-					>
-				</div>
-			{/each}
+					</div>
+				{/each}
+			{/await}
 		</div>
-	{/await}
+	</div>
 	{#if data !== undefined}
 		<!-- <div class="rubyTexts">
 			{#each data.rubyTexts as rubyText}
@@ -115,10 +124,13 @@
 
 		<p>{data.translation}</p>
 
-		<div>
+		<div id="button-container">
 			<button on:click={() => speechSynthesis.speak(utterance)}>Speak Sentence</button>
-			<button on:click={() => navigator.clipboard.writeText(data.chineseSentence)}
-				>Copy Sentence</button
+			<button
+				on:click={() =>
+					traditional
+						? navigator.clipboard.writeText(data.traditionalChineseSentence)
+						: navigator.clipboard.writeText(data.chineseSentence)}>Copy Sentence</button
 			>
 			<button
 				on:click={() => {
@@ -126,7 +138,7 @@
 				}}>Switch To {traditional ? 'Simplified' : 'Traditional'}</button
 			>
 		</div>
-		<small>Seed: {data.seed}</small>
+		<small style="opacity: 0.4">Seed: {data.seed}</small>
 	{:else}
 		<p style="color:red;">loading...</p>
 	{/if}
@@ -161,13 +173,18 @@
 		align-items: baseline;
 		justify-content: center;
 		row-gap: 1em;
+
+		padding: 0 4rem;
 	}
 
 	.character {
+		/* font-size: clamp(12px, 2vw, 24px); */
 		font-family: 'XingKai SC', 'XingKai TC', 'serif';
 		font-weight: bold;
+		font-size: 5em;
 	}
 	.traditionalCharacter {
+		/* font-size: clamp(12px, 2vw, 24px); */
 		font-family: 'XingKai TC', 'XingKai SC', 'serif';
 		font-weight: bold;
 	}
@@ -189,5 +206,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+
+		margin: 2rem 0;
+	}
+
+	#button-container {
+		margin: 0.7rem;
 	}
 </style>

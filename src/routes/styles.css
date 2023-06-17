@@ -1,5 +1,6 @@
 body {
-	font-size: clamp(12px, 2vw, 24px);
+	/* font-size: clamp(12px, 2vw, 24px); */
+	font-size: 1.2rem;
 	margin: 0;
 
 	font-family: "serif";
@@ -145,7 +146,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: flex;f
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -229,9 +230,6 @@ body {
   width: 100vw;
 }
 
-#container {
-  font-weight: 900;
-}
 
 #cmnText {
   font-size: 4rem;
@@ -289,15 +287,16 @@ button {
   background beneath it as its own but lightening it --
   almost like IOS. */
   background: #000;
+	border: 1px solid #fff;
   color: #fff;
-  opacity: 0.4;
+  opacity: 0.6;
 
   padding: 0.5rem 1rem;
   font-family: "Noto Serif SC", serif;
   outline: 0;
-  border: 0;
+  /* border: 0; */
 
-  font-size: calc(0.4rem + 0.4vw);
+  /* font-size: calc(0.4rem + 0.4vw); */
 }
 
 /* Then maybe something like */

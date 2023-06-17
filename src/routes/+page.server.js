@@ -33,12 +33,144 @@ function makeid(length) {
 	return result;
 }
 
+
+
 export const load = async ({ fetch }) => {
+
+	const fetchDefinitions = async (rubyTexts) => {
+		let definitions = [];
+
+		for (const [i, s] of rubyTexts.entries()) {
+			let word = s.chars;
+
+			// Exceptions
+			if (word == "个") {
+				s.definition = "generic classifier for noun";
+				continue;
+			}
+
+			if (word == "别" && i == 0) {
+				s.definition = "don't";
+				continue;
+			}
+
+			if (word == "吗") {
+				s.definition = "question particle";
+				continue;
+			}
+
+			if (word == "里" && s.pinyin == "lǐ") {
+				s.definition = 'inside';
+				continue;
+			}
+			if (word == "被") {
+				s.definition = 'by';
+				continue;
+			}
+
+			// let result = await dictionary.query(s.chars);
+			// let result;
+			console.log(rubyTexts)
+			let result = await cedict.searchByChineseAsync(s.chars)
+			// console.log('s.chars');
+			// console.log(s.chars);
+			// console.log('result');
+			// console.log(result);
+
+			if (!result || result.length == 0) {
+				s.definition = null;
+				// continue;
+				continue;
+			}
+
+			if (s.chars == '背') {
+				console.log(result)
+			}
+
+			let correctPronunciationResult = result.filter(r => r.pronunciation.replace(/\s+/g, '') == (i == 0 ? s.pinyin.toLowerCase() : s.pinyin));
+			result = correctPronunciationResult.length ? correctPronunciationResult : result;
+			if (s.chars == '背') {
+				console.log(result)
+			}
+			// let englishDefinitions = result[0].definitions.split(';');
+
+			// let r = result.filter(r => !/^surname/.test(r.definitions))
+			// console.log(r)
+			// r = r.length ? r : result;
+
+			let noSurnameResult = result.filter(r => !/^surname/.test(r.definitions))
+			// console.log(noSurnameResult)
+			result = noSurnameResult.length ? noSurnameResult : result;
+			// console.log(result)
+
+
+			// let r2 = r.filter(r => !/^abbr./.test(r.definitions))
+			// console.log(r2)
+			// r = r2.length ? r2 : r;
+
+			let noAbbreviationResult = result.filter(r => !/^abbr./.test(r.definitions))
+			result = noAbbreviationResult.length ? noAbbreviationResult : result;
+			// console.log(result)
+
+
+			// r2 = r.filter(r => !/^variant./.test(r.definitions))
+			// console.log(r2)
+			// r = r2.length ? r2 : r;
+
+			let noVariantResult = result.filter(r => !/^variant /.test(r.definitions))
+			result = noVariantResult.length ? noVariantResult : result;
+
+
+			let noOldVariantResult = result.filter(r => !/^old variant /.test(r.definitions))
+			result = noOldVariantResult.length ? noOldVariantResult : result;
+			// console.log(result)
+
+
+
+			let definitions = result[0].definitions.split(';');
+
+			// let noVariantResult = definitions.filter(d => !/^variant /.test(d))
+			// definitions = noVariantResult.length ? noVariantResult : definitions;
+
+			let noLongResult = definitions.filter(d => d.split(' ').length <= 10)
+			definitions = noLongResult.length ? noLongResult : definitions;
+
+			let definition = definitions[0];
+			// let definition = r[0]?.english[0];
+
+			if (!definition) {
+				s.definition = null;
+				// continue;
+			}
+
+			let r2 = definition.replace(/\([^()]*\)/g, "").trim();
+
+			// "structural particle: used after a verb , linking it to following phrase indicating effect, degree, possibility etc"
+			// -> "structural particle"
+			r2 = r2.replace(/:.*/, '');
+
+			definition = r2.length ? r2 : definition;
+
+
+
+			// console.log(result)
+			definitions.push(result);
+			// console.log("definitions")
+			// console.log(definitions)
+
+			s.definition = definition;
+		}
+
+		console.log(rubyTexts);
+
+		return rubyTexts;
+	}
+
 	const seed = makeid(4);
 	console.log(seed);
 	let response = await fetch('https://tatoeba.org/en/api_v0/search?from=cmn&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no&limit=1&rand_seed=' +
-		// seed
-		'7BxZ'
+		seed
+		// '7BxZ'
 		// 'lnNV'
 		// 'FMuS'
 		// 'lWWI' // todo yuxia
@@ -160,7 +292,6 @@ export const load = async ({ fetch }) => {
 		accChinese += n;
 	}
 
-	let definitions = [];
 
 	for (const [i, s] of rubyTexts.entries()) {
 		let word = s.chars;
@@ -185,117 +316,12 @@ export const load = async ({ fetch }) => {
 			s.definition = 'inside';
 			continue;
 		}
-
-		// let result = await dictionary.query(s.chars);
-		// let result;
-		let result = await cedict.searchByChineseAsync(s.chars)
-		// console.log('s.chars');
-		// console.log(s.chars);
-		// console.log('result');
-		// console.log(result);
-
-		if (!result || result.length == 0) {
-			s.definition = null;
-			// continue;
+		if (word == "被") {
+			s.definition = 'by';
 			continue;
 		}
 
-		if (s.chars == '背') {
-			console.log(result)
-		}
-
-		let correctPronunciationResult = result.filter(r => r.pronunciation.replace(/\s+/g, '') == (i == 0 ? s.pinyin.toLowerCase() : s.pinyin));
-		result = correctPronunciationResult.length ? correctPronunciationResult : result;
-		if (s.chars == '背') {
-			console.log(result)
-		}
-		// let englishDefinitions = result[0].definitions.split(';');
-
-		// let r = result.filter(r => !/^surname/.test(r.definitions))
-		// console.log(r)
-		// r = r.length ? r : result;
-
-		let noSurnameResult = result.filter(r => !/^surname/.test(r.definitions))
-		// console.log(noSurnameResult)
-		result = noSurnameResult.length ? noSurnameResult : result;
-		// console.log(result)
-
-
-		// let r2 = r.filter(r => !/^abbr./.test(r.definitions))
-		// console.log(r2)
-		// r = r2.length ? r2 : r;
-
-		let noAbbreviationResult = result.filter(r => !/^abbr./.test(r.definitions))
-		result = noAbbreviationResult.length ? noAbbreviationResult : result;
-		// console.log(result)
-
-
-		// r2 = r.filter(r => !/^variant./.test(r.definitions))
-		// console.log(r2)
-		// r = r2.length ? r2 : r;
-
-		let noVariantResult = result.filter(r => !/^variant /.test(r.definitions))
-		result = noVariantResult.length ? noVariantResult : result;
-
-
-		let noOldVariantResult = result.filter(r => !/^old variant /.test(r.definitions))
-		result = noOldVariantResult.length ? noOldVariantResult : result;
-		// console.log(result)
-
-
-
-		let definitions = result[0].definitions.split(';');
-
-		// let noVariantResult = definitions.filter(d => !/^variant /.test(d))
-		// definitions = noVariantResult.length ? noVariantResult : definitions;
-
-		let noLongResult = definitions.filter(d => d.split(' ').length <= 10)
-		definitions = noLongResult.length ? noLongResult : definitions;
-
-		let definition = definitions[0];
-		// let definition = r[0]?.english[0];
-
-		if (!definition) {
-			s.definition = null;
-			// continue;
-		}
-
-		let r2 = definition.replace(/\([^()]*\)/g, "").trim();
-
-		// "structural particle: used after a verb , linking it to following phrase indicating effect, degree, possibility etc"
-		// -> "structural particle"
-		r2 = r2.replace(/:.*/, '');
-
-		definition = r2.length ? r2 : definition;
-
-
-
-		// console.log(result)
-		definitions.push(result);
-		// console.log("definitions")
-		// console.log(definitions)
-
-		s.definition = definition;
-
 	}
-	// // Or make a query once required data is loaded
-	// dictionary.init().then(() => dictionary.query('test').then(result => console.log(result)));
-	// Make a query directly
-	// let result = dictionary.query('test');
-
-	// let pinyinTextList = decodeEntities(r.transcriptions[1].html);
-	// pinyinTextList = pinyinTextList.split(/[, .?";!]/);
-
-	// console.log('hi')
-	// console.log({
-	// 	seed,
-	// 	response,
-	// 	chineseSentence,
-	// 	translation,
-	// 	// pinyinTextList: pinyinSentence.split(/[, .?";!”“]/),
-	// 	rubyTexts,
-	// 	definitions
-	// })
 
 	return {
 		seed,
@@ -304,7 +330,10 @@ export const load = async ({ fetch }) => {
 		translation,
 		// pinyinTextList: pinyinSentence.split(/[, .?";!”“]/),
 		rubyTexts,
-		definitions
+		streamed: {
+
+			definitions: fetchDefinitions(rubyTexts),
+		}
 	}
 
 

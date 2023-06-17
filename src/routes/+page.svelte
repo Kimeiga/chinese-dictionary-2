@@ -77,9 +77,11 @@
 								style="font-size: {characterSize}em"
 								>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
 							>
-							<rt>{rubyText.pinyin}</rt>
+							<rt class="rubytext">{rubyText.pinyin}</rt>
 						</ruby>
-						<span style="text-align: center; width: {rubyText.chars.length * 5}em"
+						<span
+							class="definition"
+							style="text-align: center; width: {rubyText.chars.length * 5}em"
 							>{rubyText.definition || ''}</span
 						>
 					</div>
@@ -93,9 +95,11 @@
 								style="font-size: {characterSize}em"
 								>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
 							>
-							<rt>{rubyText.pinyin}</rt>
+							<rt class="rubytext">{rubyText.pinyin}</rt>
 						</ruby>
-						<span style="text-align: center; width: {rubyText.chars.length * characterSize}em"
+						<span
+							class="definition"
+							style="text-align: center; width: {rubyText.chars.length * characterSize}em"
 							>{rubyText.definition || ''}</span
 						>
 					</div>
@@ -212,5 +216,12 @@
 
 	#button-container {
 		margin: 0.7rem;
+	}
+
+	.rubytext {
+		font-size: clamp(12px, 1.4vw, 24px);
+	}
+	.definition {
+		font-size: clamp(12px, 1.4vw, 24px);
 	}
 </style>

@@ -1,8 +1,12 @@
 {
 	"name": "chinese-dictionary-2",
 	"version": "0.0.1",
+	"engines": {
+		"node": "18.x",
+		"npm": "9.x"
+	},
 	"scripts": {
-		"start": "vite dev",
+		"start": "node build/index.js",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -29,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-node": "^1.2.4",
 		"@vavite/node-loader": "^1.7.0",
 		"chinese-dictionary": "^1.1.2",
 		"coupling-dict-chinese-updated": "^1.0.5",

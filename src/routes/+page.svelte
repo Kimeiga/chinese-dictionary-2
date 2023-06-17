@@ -179,13 +179,13 @@
 
 	.character {
 		/* font-size: clamp(12px, 2vw, 24px); */
-		font-family: 'XingKai SC', 'XingKai TC', 'KaiTi', 'serif';
+		font-family: 'XingKai SC', 'XingKai TC', 'KaiTi', 'KaiTi TC', 'PingFang TC', 'serif';
 		font-weight: bold;
 		font-size: 5em;
 	}
 	.traditionalCharacter {
 		/* font-size: clamp(12px, 2vw, 24px); */
-		font-family: 'XingKai TC', 'XingKai SC', 'KaiTi', 'serif';
+		font-family: 'XingKai TC', 'XingKai SC', 'KaiTi', 'KaiTi SC', 'PingFang SC', 'serif';
 		font-weight: bold;
 	}
 

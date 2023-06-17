@@ -10,14 +10,6 @@
 </script>
 
 <main>
-	{#await data}
-		<p>hihihi</p>
-	{:then data}
-		{data}
-	{/await}
-	{data}
-	{data == undefined}
-	{data == null}
 	{#if data !== undefined}
 		<div class="rubyTexts">
 			{#each data.rubyTexts as rubyText}

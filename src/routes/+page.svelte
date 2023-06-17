@@ -178,7 +178,7 @@
 		justify-content: center;
 		row-gap: 1em;
 
-		padding: 0 4rem;
+		padding: 0 2rem;
 	}
 
 	.character {
@@ -211,7 +211,7 @@
 		justify-content: center;
 		align-items: center;
 
-		margin: 2rem 0;
+		margin: 1rem 0;
 	}
 
 	#button-container {

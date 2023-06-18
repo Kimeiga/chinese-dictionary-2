@@ -224,7 +224,7 @@ body {
   text-align: center;
 
   /* font-family: "Noto Serif SC", serif; */
-  font-family: "SongTi SC", serif, "KaiTi", "KaiTi SC";
+  font-family: "SongTi SC", "Calisto MT", serif, "KaiTi", "KaiTi SC";
 
   /* to prevent overflow */
   width: 100vw;
@@ -292,7 +292,7 @@ button {
   opacity: 0.6;
 
   padding: 0.5rem 1rem;
-  font-family: "SongTi SC", serif, "KaiTi", "KaiTi SC";
+  font-family: "SongTi SC", "Calisto MT", serif, "KaiTi", "KaiTi SC";
 	/* font-size: clamp(12px, 2vw, 24px); */
 
   outline: 0;

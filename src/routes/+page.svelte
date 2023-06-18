@@ -82,7 +82,7 @@
 
 	SetBackgroundImage();
 
-	function determineChar(tc, sc) {
+	function determineChar(sc) {
 		if (sc == '。') {
 			// return halfwidth full stop
 			return '｡';
@@ -135,11 +135,7 @@
 		if (sc == '”') {
 			return '"';
 		}
-		if (traditional) {
-			return tc;
-		} else {
-			return sc;
-		}
+		return sc;
 	}
 </script>
 
@@ -153,7 +149,9 @@
 							<span
 								class={traditional ? 'traditionalCharacter' : 'character'}
 								style="font-size: {characterSize}vw"
-								>{determineChar(rubyText.traditionalChars, rubyText.chars)}</span
+								>{traditional
+									? determineChar(rubyText.traditionalChars)
+									: determineChar(rubyText.chars)}</span
 							>
 							<rt class="rubytext">{rubyText.pinyin}</rt>
 						</ruby>
@@ -173,7 +171,9 @@
 							<span
 								class={traditional ? 'traditionalCharacter' : 'character'}
 								style="font-size: {characterSize}vw"
-								>{determineChar(rubyText.traditionalChars, rubyText.chars)}</span
+								>{traditional
+									? determineChar(rubyText.traditionalChars)
+									: determineChar(rubyText.chars)}</span
 							>
 							<rt class="rubytext">{rubyText.pinyin}</rt>
 						</ruby>
@@ -264,13 +264,10 @@
 	}
 
 	.character {
-		/* font-size: clamp(12px, 2vw, 24px); */
 		font-family: 'XingKai SC', 'XingKai TC', 'KaiTi', 'KaiTi TC', 'PingFang TC', 'serif';
 		font-weight: bold;
-		/* font-size: 5em; */
 	}
 	.traditionalCharacter {
-		/* font-size: clamp(12px, 2vw, 24px); */
 		font-family: 'XingKai TC', 'XingKai SC', 'KaiTi', 'KaiTi SC', 'PingFang SC', 'serif';
 		font-weight: bold;
 	}

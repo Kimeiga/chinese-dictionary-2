@@ -11,7 +11,25 @@
 	// Clamp number between two values with the following line:
 	const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-	const characterSize = clamp(8 - data.chineseSentence.length / 6, 4, 8);
+	// const characterSize = clamp(8 - data.chineseSentence.length / 6, 4, 8);
+
+	function remToVw(rem) {
+		// Get root element font-size
+		var rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+		// Convert rem to px
+		var px = rem * rootFontSize;
+
+		// Viewport width in pixels
+		var vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+		// Convert pixel value to vw
+		var resultVw = (px / vw) * 100;
+
+		return resultVw;
+	}
+
+	const characterSize = clamp(100 / data.chineseSentence.length, remToVw(5), remToVw(12));
 
 	function SetBackgroundImage() {
 		// let words = new pos.Lexer().lex(translationText);
@@ -63,6 +81,66 @@
 	}
 
 	SetBackgroundImage();
+
+	function determineChar(tc, sc) {
+		if (sc == '。') {
+			// return halfwidth full stop
+			return '｡';
+		}
+		if (sc == '，') {
+			// return halfwidth comma
+			return ',';
+		}
+		if (sc == '、') {
+			// return halfwidth comma
+			return '､';
+		}
+		// if sc is full width question mark
+		if (sc == '？') {
+			return '?';
+		}
+		// if sc is full width exclamation mark
+		if (sc == '！') {
+			return '!';
+		}
+		// if sc is full width colon
+		if (sc == '：') {
+			return ':';
+		}
+		// if sc is full width semicolon
+		if (sc == '；') {
+			return ';';
+		}
+		// if sc is full width left parenthesis
+		if (sc == '（') {
+			return '(';
+		}
+		// if sc is full width right parenthesis
+		if (sc == '）') {
+			return ')';
+		}
+		// if sc is full width left square bracket
+		if (sc == '【') {
+			return '[';
+		}
+		// if sc is full width right square bracket
+		if (sc == '】') {
+			return ']';
+		}
+		// if sc is full width left double quote
+		if (sc == '“') {
+			return '"';
+		}
+		// if sc is full width right double quote
+		if (sc == '”') {
+			return '"';
+		}
+		if (traditional) {
+			return tc;
+		} else {
+			return sc;
+		}
+	}
 </script>
 
 <main>
@@ -74,16 +152,18 @@
 						<ruby>
 							<span
 								class={traditional ? 'traditionalCharacter' : 'character'}
-								style="font-size: {characterSize}em"
-								>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
+								style="font-size: {characterSize}vw"
+								>{determineChar(rubyText.traditionalChars, rubyText.chars)}</span
 							>
 							<rt class="rubytext">{rubyText.pinyin}</rt>
 						</ruby>
-						<span
-							class="definition"
-							style="text-align: center; width: {rubyText.chars.length * 5}em"
-							>{rubyText.definition || ''}</span
-						>
+						{#if rubyText.definition}
+							<span
+								class="definition"
+								style="text-align: center; width: {rubyText.chars.length * characterSize}vw"
+								>{rubyText.definition || ''}</span
+							>
+						{/if}
 					</div>
 				{/each}
 			{:then value}
@@ -92,16 +172,18 @@
 						<ruby>
 							<span
 								class={traditional ? 'traditionalCharacter' : 'character'}
-								style="font-size: {characterSize}em"
-								>{traditional ? rubyText.traditionalChars : rubyText.chars}</span
+								style="font-size: {characterSize}vw"
+								>{determineChar(rubyText.traditionalChars, rubyText.chars)}</span
 							>
 							<rt class="rubytext">{rubyText.pinyin}</rt>
 						</ruby>
-						<span
-							class="definition"
-							style="text-align: center; width: {rubyText.chars.length * characterSize}em"
-							>{rubyText.definition || ''}</span
-						>
+						{#if rubyText.definition}
+							<span
+								class="definition"
+								style="text-align: center; width: {rubyText.chars.length * characterSize}vw"
+								>{rubyText.definition || ''}</span
+							>
+						{/if}
 					</div>
 				{/each}
 			{/await}
@@ -176,16 +258,16 @@
 		flex-wrap: wrap;
 		align-items: baseline;
 		justify-content: center;
-		row-gap: 1em;
+		row-gap: 2em;
 
-		padding: 0 2rem;
+		padding: 0 1rem;
 	}
 
 	.character {
 		/* font-size: clamp(12px, 2vw, 24px); */
 		font-family: 'XingKai SC', 'XingKai TC', 'KaiTi', 'KaiTi TC', 'PingFang TC', 'serif';
 		font-weight: bold;
-		font-size: 5em;
+		/* font-size: 5em; */
 	}
 	.traditionalCharacter {
 		/* font-size: clamp(12px, 2vw, 24px); */
@@ -219,9 +301,18 @@
 	}
 
 	.rubytext {
-		font-size: clamp(12px, 1.4vw, 24px);
+		/* font-size: clamp(12px, 1.4vw, 24px); */
+		/* position: relative;
+		bottom: 1em;
+		display: inline;
+		line-height: 1; */
 	}
 	.definition {
-		font-size: clamp(12px, 1.4vw, 24px);
+		/* font-size: clamp(12px, 1.4vw, 24px); */
+		position: relative;
+		top: 0.5em;
+	}
+	ruby {
+		line-height: 1;
 	}
 </style>

@@ -1,5 +1,5 @@
 body {
-	font-size: clamp(12px, 2vw, 24px);
+	/* font-size: clamp(12px, 2vw, 24px); */
 	/* font-size: 1.2rem; */
 	margin: 0;
 
@@ -224,7 +224,7 @@ body {
   text-align: center;
 
   /* font-family: "Noto Serif SC", serif; */
-  font-family: serif, "SongTi SC", "KaiTi", "KaiTi SC";
+  font-family:"SongTi SC", "KaiTi", "KaiTi SC",  serif;
 
   /* to prevent overflow */
   width: 100vw;
@@ -292,8 +292,8 @@ button {
   opacity: 0.6;
 
   padding: 0.5rem 1rem;
-  font-family: "Noto Serif SC", serif;
-	font-size: clamp(12px, 2vw, 24px);
+  font-family: "SongTi SC", "KaiTi", "KaiTi SC",  serif;
+	/* font-size: clamp(12px, 2vw, 24px); */
 
   outline: 0;
   /* border: 0; */

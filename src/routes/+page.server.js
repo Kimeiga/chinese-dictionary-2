@@ -67,6 +67,10 @@ export const load = async ({ fetch }) => {
 				s.definition = 'by';
 				continue;
 			}
+			if (word == "跟") {
+				s.definition = 'with';
+				continue;
+			}
 
 			// let result = await dictionary.query(s.chars);
 			// let result;
@@ -170,7 +174,9 @@ export const load = async ({ fetch }) => {
 	console.log(seed);
 	let response = await fetch('https://tatoeba.org/en/api_v0/search?from=cmn&orphans=no&sort=random&to=eng&trans_filter=limit&trans_to=eng&unapproved=no&limit=1&rand_seed=' +
 		seed
-		// 'Uv8f' long
+		// 'mDb0'
+		// 'yg6k'
+		// 'Uv8f' //long
 		// '7BxZ'
 		// 'lnNV'
 		// 'FMuS'

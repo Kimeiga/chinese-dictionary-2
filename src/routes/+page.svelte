@@ -211,7 +211,7 @@
 		<p>{data.translation}</p>
 
 		<div id="button-container">
-			<button on:click={() => speechSynthesis.speak(utterance)}>Speak Sentence</button>
+			<button on:click={() => speechSynthesis.speak(utterance)}>Speak</button>
 			<button
 				on:click={() => {
 					console.log(data.traditionalChineseSentence);
@@ -219,7 +219,7 @@
 					traditional
 						? navigator.clipboard.writeText(data.traditionalChineseSentence)
 						: navigator.clipboard.writeText(data.chineseSentence);
-				}}>Copy Sentence</button
+				}}>Copy</button
 			>
 			<button
 				on:click={() => {
@@ -248,7 +248,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 100vh;
+		height: 100svh;
 	}
 
 	hr {
@@ -267,11 +267,13 @@
 	}
 
 	.character {
-		font-family: 'XingKai SC', 'XingKai TC', 'KaiTi', 'KaiTi TC', 'PingFang TC', 'serif';
+		font-family: 'XingKai SC', 'C Xingkai SC', 'XingKai TC', 'KaiTi', 'KaiTi TC', 'PingFang TC',
+			'serif';
 		font-weight: bold;
 	}
 	.traditionalCharacter {
-		font-family: 'XingKai TC', 'XingKai SC', 'KaiTi', 'KaiTi SC', 'PingFang SC', 'serif';
+		font-family: 'XingKai TC', 'C Xingkai TC', 'XingKai SC', 'KaiTi', 'KaiTi SC', 'PingFang SC',
+			'serif';
 		font-weight: bold;
 	}
 

@@ -213,10 +213,13 @@
 		<div id="button-container">
 			<button on:click={() => speechSynthesis.speak(utterance)}>Speak Sentence</button>
 			<button
-				on:click={() =>
+				on:click={() => {
+					console.log(data.traditionalChineseSentence);
+					console.log(data.chineseSentence);
 					traditional
 						? navigator.clipboard.writeText(data.traditionalChineseSentence)
-						: navigator.clipboard.writeText(data.chineseSentence)}>Copy Sentence</button
+						: navigator.clipboard.writeText(data.chineseSentence);
+				}}>Copy Sentence</button
 			>
 			<button
 				on:click={() => {

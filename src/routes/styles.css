@@ -3,7 +3,7 @@ body {
 	/* font-size: 1.2rem; */
 	margin: 0;
 
-	font-family: "serif";
+	/* font-family: "serif"; */
 	background: black;
 	color: white;
 }
@@ -224,7 +224,7 @@ body {
   text-align: center;
 
   /* font-family: "Noto Serif SC", serif; */
-  font-family: "SongTi SC", "Calisto MT", serif, "KaiTi", "KaiTi SC";
+	/* font-family:  "SongTi SC", "Calisto MT", serif, "KaiTi", "KaiTi SC"; */
 
   /* to prevent overflow */
   width: 100vw;
@@ -292,7 +292,7 @@ button {
   opacity: 0.6;
 
   padding: 0.5rem 1rem;
-  font-family: "SongTi SC", "Calisto MT", serif, "KaiTi", "KaiTi SC";
+  /* font-family: "SongTi SC", "Calisto MT", serif, "KaiTi", "KaiTi SC"; */
 	/* font-size: clamp(12px, 2vw, 24px); */
 
   outline: 0;
@@ -311,3 +311,16 @@ button:hover {
 .main-ruby {
   margin: 1rem 0;
 }
+
+/* @font-face {
+	font-family: 'HanyiSentyTang';
+	src: url('/fonts/HanyiSentyTang.eot');
+	src: url('/fonts/HanyiSentyTang.eot?#iefix') format('embedded-opentype'),
+			url('/fonts/HanyiSentyTang.woff2') format('woff2'),
+			url('/fonts/HanyiSentyTang.woff') format('woff'),
+			url('/fonts/HanyiSentyTang.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+} */
+

@@ -310,7 +310,7 @@
 	.definition {
 		/* font-size: clamp(12px, 1.4vw, 24px); */
 		position: relative;
-		top: 0.5em;
+		/* top: 0.5em; */
 	}
 	ruby {
 		line-height: 1;

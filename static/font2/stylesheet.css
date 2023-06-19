@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'SentyWen';
+    src: url('SentyWen.eot');
+    src: url('SentyWen.eot?#iefix') format('embedded-opentype'),
+        url('SentyWen.woff2') format('woff2'),
+        url('SentyWen.woff') format('woff'),
+        url('SentyWen.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

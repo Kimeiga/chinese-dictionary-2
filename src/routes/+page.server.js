@@ -1,6 +1,4 @@
 // @ts-nocheck
-// const dictionary = require('chinese-dictionary');
-// import dictionary from 'chinese-dictionary';
 import cedict from 'coupling-dict-chinese-updated';
 import he from 'he';
 // var decodeEntities = (function () {

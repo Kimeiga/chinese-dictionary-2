@@ -1,3 +1,8 @@
+called chinese dictionary for now but really it should be just called
+random chinese sentence because that's what it is
+
+chinesesentence.com
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).

@@ -83,10 +83,10 @@
 	SetBackgroundImage();
 
 	function determineChar(sc) {
-		if (sc == '。') {
-			// return halfwidth full stop
-			return '｡';
-		}
+		// if (sc == '。') {
+		// 	// return halfwidth full stop
+		// 	return '｡';
+		// }
 		if (sc == '，') {
 			// return halfwidth comma
 			return ',';
@@ -144,11 +144,21 @@
 		<div class="rubyTexts">
 			{#await data.streamed.definitions}
 				{#each data.rubyTexts as rubyText}
-					<div style="display: flex; flex-direction:column;align-items:center;">
+					<div
+						style="display: flex; flex-direction:column;align-items:{determineChar(
+							rubyText.chars
+						) == '。'
+							? ''
+							: 'center'}; width: {determineChar(rubyText.chars) == '。'
+							? 0.5 * characterSize + 'vw'
+							: ''};"
+					>
 						<ruby>
 							<span
 								class={traditional ? 'traditionalCharacter' : 'character'}
-								style="font-size: {characterSize}vw"
+								style="font-size: {characterSize}vw; width: {determineChar(rubyText.chars) == '。'
+									? '50%'
+									: '100%'};"
 								>{traditional
 									? determineChar(rubyText.traditionalChars)
 									: determineChar(rubyText.chars)}</span
@@ -166,11 +176,21 @@
 				{/each}
 			{:then value}
 				{#each value as rubyText}
-					<div style="display: flex; flex-direction:column;align-items:center;">
+					<div
+						style="display: flex; flex-direction:column;align-items:{determineChar(
+							rubyText.chars
+						) == '。'
+							? ''
+							: 'center'}; width: {determineChar(rubyText.chars) == '。'
+							? 0.5 * characterSize + 'vw'
+							: ''};"
+					>
 						<ruby>
 							<span
 								class={traditional ? 'traditionalCharacter' : 'character'}
-								style="font-size: {characterSize}vw"
+								style="font-size: {characterSize}vw; width: {determineChar(rubyText.chars) == '。'
+									? '50%'
+									: '100%'};"
 								>{traditional
 									? determineChar(rubyText.traditionalChars)
 									: determineChar(rubyText.chars)}</span

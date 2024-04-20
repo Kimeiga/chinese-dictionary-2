@@ -195,7 +195,6 @@ export const load = async ({ fetch }) => {
 
 	// console.log(response)
 
-
 	let result = response.results[0];
 
 	let chineseSentence;

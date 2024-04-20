@@ -2,8 +2,8 @@
 	"name": "chinese-dictionary-2",
 	"version": "0.0.1",
 	"engines": {
-		"node": "18.x",
-		"npm": "9.x"
+		"node": ">=18.20.0",
+		"npm": ">=10.5.2"
 	},
 	"scripts": {
 		"start": "node build/index.js",
@@ -37,6 +37,7 @@
 		"@vavite/node-loader": "^1.7.0",
 		"coupling-dict-chinese-updated": "^1.0.5",
 		"he": "^1.2.0",
-		"heroku": "^8.1.8"
+		"heroku": "^8.1.8",
+		"opencc": "^1.1.3"
 	}
 }
